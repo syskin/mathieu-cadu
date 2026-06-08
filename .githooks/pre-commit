@@ -4,6 +4,15 @@
 # Blocks the commit if types, lint, content provenance, or tests fail.
 set -e
 
+# Identity guard — this public repo must only carry syskin's commits.
+EXPECTED_EMAIL="syskin@users.noreply.github.com"
+email=$(git config user.email)
+if [ "$email" != "$EXPECTED_EMAIL" ]; then
+  echo "✗ pre-commit: commit identity is '$email', expected '$EXPECTED_EMAIL' (syskin). Aborting." >&2
+  echo "  Fix: git config user.name syskin && git config user.email $EXPECTED_EMAIL" >&2
+  exit 1
+fi
+
 echo "› pre-commit: running pnpm check…"
 pnpm -s check
 echo "✓ pre-commit: all gates green."
