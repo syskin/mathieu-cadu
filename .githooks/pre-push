@@ -14,7 +14,13 @@ echo "› pre-push: production build…"
 pnpm -s build >/dev/null
 
 # 3. Secret scan — public repo, nothing sensitive may leave the machine.
-if git grep -I -l -e 'BEGIN OPENSSH PRIVATE KEY' -e 'BEGIN RSA PRIVATE KEY' -e 'BEGIN PRIVATE KEY' -- . >/dev/null 2>&1; then
+# Match the real (dashed) key header; exclude this scanner so it can't flag itself.
+if git grep -I -l \
+     -e '-----BEGIN OPENSSH PRIVATE KEY-----' \
+     -e '-----BEGIN RSA PRIVATE KEY-----' \
+     -e '-----BEGIN EC PRIVATE KEY-----' \
+     -e '-----BEGIN PRIVATE KEY-----' \
+     -- . ':(exclude).githooks/pre-push' >/dev/null 2>&1; then
   echo "✗ pre-push: private key material found in tracked files. Aborting." >&2
   exit 1
 fi
