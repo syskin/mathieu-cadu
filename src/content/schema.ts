@@ -15,16 +15,46 @@ export const Surface = z.enum(["web", "ios", "android", "api", "infra", "cli"]);
 export type Surface = z.infer<typeof Surface>;
 
 /**
+ * Provenance. Enforces the golden rule "never invent" mechanically: every fact
+ * carries a source, or it does not exist. Unsourced facts are rejected at build.
+ * `linkedin` = https://www.linkedin.com/in/mathieucadu/ (a source of truth).
+ */
+export const Source = z.object({
+  kind: z.enum(["mathieu", "linkedin", "url", "repo", "commit", "dashboard"]),
+  /** Concrete reference: a URL, git sha, dashboard name, or "Mathieu, YYYY-MM". */
+  ref: z.string().min(3),
+});
+export type Source = z.infer<typeof Source>;
+
+/** A sourced metric — number only in `value`, never an adjective. */
+export const Metric = z.object({
+  label: z.string(),
+  value: z.string(),
+  source: Source,
+});
+
+/** A sourced guardrail (eval, test, structured output, human gate). */
+export const Guardrail = z.object({
+  text: z.string(),
+  source: Source,
+});
+
+/** The agentic flow actually used to ship — facts, sanitized if needed, sourced. */
+export const AgenticFlow = z.object({
+  summary: z.string().min(1),
+  source: Source,
+});
+
+/**
  * Pillar 3 — disciplined AI engineering, proven by artifacts only.
- * No marketing prose. Facts, guardrails, numbers. Supplied by Mathieu, never invented.
+ * No marketing prose. Every entry is sourced (provenance enforced above).
+ * Empty arrays / absent flow are valid (= not yet documented). Half-filled
+ * unsourced facts are not: that is how silent fabrication is blocked.
  */
 export const BuildEvidence = z.object({
-  /** The agentic flow actually used to ship, stated as facts (sanitized if needed). */
-  agenticFlow: z.string().min(1).optional(),
-  /** Guardrails separating framed agentic engineering from vibe coding (evals, tests, structured output, human gates). */
-  guardrails: z.array(z.string()).default([]),
-  /** Delivery metrics — label + value, numbers only. */
-  metrics: z.array(z.object({ label: z.string(), value: z.string() })).default([]),
+  agenticFlow: AgenticFlow.optional(),
+  guardrails: z.array(Guardrail).default([]),
+  metrics: z.array(Metric).default([]),
 });
 export type BuildEvidence = z.infer<typeof BuildEvidence>;
 

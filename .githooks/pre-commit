@@ -1,0 +1,9 @@
+#!/bin/sh
+# Local quality gate — runs before every commit. No CI/remote required.
+# Wired via `git config core.hooksPath .githooks` (done by the `prepare` script).
+# Blocks the commit if types, lint, content provenance, or tests fail.
+set -e
+
+echo "› pre-commit: running pnpm check…"
+pnpm -s check
+echo "✓ pre-commit: all gates green."

@@ -1,0 +1,29 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/post-content-edit.mjs\"",
+            "timeout": 120,
+            "statusMessage": "Validating content rail…"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/stop-gate.mjs\"",
+            "timeout": 300,
+            "statusMessage": "Running local gate (pnpm check)…"
+          }
+        ]
+      }
+    ]
+  }
+}
