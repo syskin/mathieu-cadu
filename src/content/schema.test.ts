@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { projectSchema } from "./schema";
+import { projectSchema, Source } from "./schema";
 
 // The rails ARE the product (pillar 3). These tests prove they hold.
 const base = {
@@ -62,5 +62,23 @@ describe("project content rail", () => {
     expect(() =>
       projectSchema.parse({ ...base, status: "live", build: {} }),
     ).not.toThrow();
+  });
+});
+
+describe("provenance ref↔kind", () => {
+  it("rejects url kind without an http URL", () => {
+    expect(() => Source.parse({ kind: "url", ref: "not-a-url" })).toThrow();
+  });
+  it("accepts url kind with an http URL", () => {
+    expect(() => Source.parse({ kind: "url", ref: "https://boney.app" })).not.toThrow();
+  });
+  it("rejects linkedin kind that isn't a linkedin /in/ URL", () => {
+    expect(() => Source.parse({ kind: "linkedin", ref: "https://example.com" })).toThrow();
+  });
+  it("rejects mathieu kind without a date", () => {
+    expect(() => Source.parse({ kind: "mathieu", ref: "Mathieu said so" })).toThrow();
+  });
+  it("rejects commit kind without a sha", () => {
+    expect(() => Source.parse({ kind: "commit", ref: "the main branch" })).toThrow();
   });
 });

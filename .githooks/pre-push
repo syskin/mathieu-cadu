@@ -6,29 +6,15 @@ set -e
 
 echo "› pre-push: full verify before public push…"
 
-# 1. Quality gate (types + lint + content provenance + tests).
+# 1. Quality gate — types + lint + content provenance + security (PII/secrets/.env) + tests.
 pnpm -s check
 
 # 2. Production build must succeed — a public site that doesn't build is unacceptable.
 echo "› pre-push: production build…"
 pnpm -s build >/dev/null
 
-# 3. Secret scan — public repo, nothing sensitive may leave the machine.
-# Match the real (dashed) key header; exclude this scanner so it can't flag itself.
-if git grep -I -l \
-     -e '-----BEGIN OPENSSH PRIVATE KEY-----' \
-     -e '-----BEGIN RSA PRIVATE KEY-----' \
-     -e '-----BEGIN EC PRIVATE KEY-----' \
-     -e '-----BEGIN PRIVATE KEY-----' \
-     -- . ':(exclude).githooks/pre-push' >/dev/null 2>&1; then
-  echo "✗ pre-push: private key material found in tracked files. Aborting." >&2
-  exit 1
-fi
-leak=$(git ls-files | grep -E '(^|/)\.env($|\.)' | grep -vE '\.(example|sample|template)$' || true)
-if [ -n "$leak" ]; then
-  echo "✗ pre-push: tracked env file(s) would be published:" >&2
-  echo "$leak" >&2
-  exit 1
-fi
+# 3. Supply chain — block high/critical dependency advisories (network-bound, push only).
+echo "› pre-push: supply-chain audit…"
+pnpm -s harness:supply
 
 echo "✓ pre-push: green, safe to publish."

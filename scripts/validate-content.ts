@@ -51,6 +51,18 @@ for (const p of projects) {
   }
 }
 
+// Uniqueness — duplicate slugs break routing; duplicate indexes make ordering unstable.
+const dupes = (key: "slug" | "index") => {
+  const seen = new Map<string, number>();
+  for (const p of projects) {
+    const k = String(p[key]);
+    seen.set(k, (seen.get(k) ?? 0) + 1);
+  }
+  return [...seen].filter(([, n]) => n > 1).map(([k]) => k);
+};
+for (const s of dupes("slug")) fail(`duplicate slug "${s}" — slugs must be unique (routing).`);
+for (const i of dupes("index")) fail(`duplicate index ${i} — indexes must be unique (stable ordering).`);
+
 if (errors > 0) {
   console.error(`\nContent validation FAILED: ${errors} issue(s).`);
   process.exit(1);

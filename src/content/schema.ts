@@ -19,11 +19,26 @@ export type Surface = z.infer<typeof Surface>;
  * carries a source, or it does not exist. Unsourced facts are rejected at build.
  * `linkedin` = https://www.linkedin.com/in/mathieucadu/ (a source of truth).
  */
-export const Source = z.object({
-  kind: z.enum(["mathieu", "linkedin", "url", "repo", "commit", "dashboard"]),
-  /** Concrete reference: a URL, git sha, dashboard name, or "Mathieu, YYYY-MM". */
-  ref: z.string().min(3),
-});
+export const Source = z
+  .object({
+    kind: z.enum(["mathieu", "linkedin", "url", "repo", "commit", "dashboard"]),
+    /** Concrete reference: a URL, git sha, dashboard name, or "Mathieu, YYYY-MM". */
+    ref: z.string().min(3),
+  })
+  .superRefine((s, ctx) => {
+    // ref must match its kind — a source you can't follow is not a source.
+    const isUrl = /^https?:\/\//.test(s.ref);
+    const add = (message: string) => ctx.addIssue({ code: "custom", message, path: ["ref"] });
+    if (s.kind === "url" && !isUrl) add('kind "url" requires an http(s) URL.');
+    if (s.kind === "linkedin" && !s.ref.includes("linkedin.com/in/"))
+      add('kind "linkedin" requires a linkedin.com/in/… URL.');
+    if (s.kind === "repo" && !isUrl && !s.ref.includes("/"))
+      add('kind "repo" requires a repo URL or owner/name path.');
+    if (s.kind === "commit" && !/[0-9a-f]{7,40}/i.test(s.ref))
+      add('kind "commit" requires a git sha (7–40 hex chars).');
+    if (s.kind === "mathieu" && !/20\d\d/.test(s.ref))
+      add('kind "mathieu" requires a date (e.g. "Mathieu, 2026-06") for verifiability.');
+  });
 export type Source = z.infer<typeof Source>;
 
 /** A sourced metric — number only in `value`, never an adjective. */
