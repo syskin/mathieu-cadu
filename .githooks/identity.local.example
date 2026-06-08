@@ -1,0 +1,5 @@
+# Copy to .githooks/identity.local (gitignored — never committed).
+# Use your GitHub *noreply* email so no personal address lands in the tree
+# or in commit metadata. Find it at https://github.com/settings/emails
+# ("Keep my email addresses private" → <id>+syskin@users.noreply.github.com).
+EXPECTED_EMAIL="REPLACE_WITH_YOUR_NOREPLY@users.noreply.github.com"

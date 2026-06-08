@@ -53,7 +53,7 @@ if (adrs.length === 0) fail("no ADRs in docs/adr — decisions must be journaled
 // 5. Gate completeness — `check` must run all the rails (self-referential).
 const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
 const check: string = pkg.scripts?.check ?? "";
-for (const step of ["validate", "vitest", "harness:audit"]) {
+for (const step of ["validate", "harness:security", "vitest", "harness:audit"]) {
   if (!check.includes(step)) fail(`pnpm check is missing the "${step}" step — the gate would skip it.`);
 }
 

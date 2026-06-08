@@ -58,7 +58,7 @@ If you add a capability the audit can't see, extend `scripts/audit-harness.ts` w
 
 ## Commit identity (enforced)
 
-This public repo carries **only `syskin <syskin@users.noreply.github.com>`**. The pre-commit hook blocks any other identity. Never commit with `-c user.email=…` overrides. If a wrong author lands, rewrite history and force-push (solo repo).
+This public repo carries **only syskin's commits**, using a GitHub **noreply** address as the commit email (no personal email in the tree or in commit metadata). The expected identity lives in `.githooks/identity.local` (gitignored — see `.githooks/identity.local.example`); the pre-commit hook blocks any other identity. Never commit with `-c user.email=…` overrides. If a wrong author lands, rewrite history and force-push (solo repo).
 
 ## Decisions
 

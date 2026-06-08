@@ -42,3 +42,6 @@ next-env.d.ts
 
 # claude code — keep project hooks/settings, ignore local overrides
 .claude/settings.local.json
+
+# harness — local identity (no PII in the tree)
+.githooks/identity.local

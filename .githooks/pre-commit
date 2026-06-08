@@ -5,11 +5,17 @@
 set -e
 
 # Identity guard — this public repo must only carry syskin's commits.
-EXPECTED_EMAIL="syskin@users.noreply.github.com"
+# Expected identity is read from a gitignored file (no PII in the tree).
+[ -f .githooks/identity.local ] && . ./.githooks/identity.local
+if [ -z "$EXPECTED_EMAIL" ]; then
+  echo "✗ pre-commit: no EXPECTED_EMAIL set." >&2
+  echo "  Create .githooks/identity.local from .githooks/identity.local.example." >&2
+  exit 1
+fi
 email=$(git config user.email)
 if [ "$email" != "$EXPECTED_EMAIL" ]; then
-  echo "✗ pre-commit: commit identity is '$email', expected '$EXPECTED_EMAIL' (syskin). Aborting." >&2
-  echo "  Fix: git config user.name syskin && git config user.email $EXPECTED_EMAIL" >&2
+  echo "✗ pre-commit: commit identity is '$email', expected the configured syskin noreply. Aborting." >&2
+  echo "  Fix: git config user.name syskin && git config user.email \"\$EXPECTED_EMAIL\"" >&2
   exit 1
 fi
 

@@ -8,9 +8,10 @@
     "start": "next start",
     "lint": "eslint",
     "validate": "tsx scripts/validate-content.ts",
+    "harness:security": "node scripts/harness/security.mjs",
     "harness:audit": "tsx scripts/audit-harness.ts",
     "test": "vitest run",
-    "check": "tsc --noEmit && eslint && pnpm validate && vitest run && pnpm harness:audit",
+    "check": "tsc --noEmit && eslint && pnpm validate && pnpm harness:security && vitest run && pnpm harness:audit",
     "prepare": "git config core.hooksPath .githooks || true"
   },
   "dependencies": {

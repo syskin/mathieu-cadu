@@ -17,9 +17,9 @@
 Definition of Done documentée dans `AGENTS.md` : tout ajout (type, item, page, décision, étape de gate) doit étendre le harness dans le même changement.
 
 ### Identité de commit (enforcée)
-Le repo public ne porte que `syskin <syskin@users.noreply.github.com>`. Le `pre-commit` bloque toute autre identité (`git config user.email` != attendu). Config locale du repo fixée à syskin ; `core.sshCommand` déjà réglé.
+Le repo public ne porte que les commits de syskin, avec une adresse GitHub **noreply** comme email de commit (aucune PII dans l'arbre ni dans les métadonnées). L'identité attendue est dans `.githooks/identity.local` (gitignoré, voir `.example`). Le `pre-commit` bloque toute autre identité. Config locale du repo fixée à syskin ; `core.sshCommand` déjà réglé.
 
-**Incident corrigé :** 4 commits avaient été créés avec `syskin@users.noreply.github.com` (mappé au compte GitHub « MathieuFrz »). Historique réécrit (`git filter-branch`) vers syskin et force-push (repo solo neuf). Le guard pre-commit empêche la récidive.
+**Incident corrigé :** des commits avaient été créés avec un email pro (mappé à un autre compte GitHub), puis un email perso s'était retrouvé en clair dans des fichiers trackés. Historique réécrit (`git filter-branch`, contenu + métadonnées) vers l'identité noreply de syskin et force-push (repo solo). Le guard pre-commit + le micro-harness `security` (scan PII/secrets) empêchent la récidive.
 
 ## Conséquences
 - Impossible d'ajouter du contenu/des pages qui échappent au harness sans casser le gate.
