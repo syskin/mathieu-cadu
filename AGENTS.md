@@ -34,6 +34,14 @@ Project content lives in `src/content/projects/*.ts`, validated by `src/content/
 
 Next.js 16 (App Router) · React 19 · TypeScript · Tailwind 4 · Zod. SEO baked in: Metadata API, `sitemap.ts`, `robots.ts`, JSON-LD. SSG by default.
 
+## This repository is PUBLIC
+
+Remote: `git@github.com:syskin/mathieu-cadu.git` — **public**. Everything pushed is visible to recruiters. Consequences:
+
+- Quality is non-negotiable at the push boundary. `.githooks/pre-push` runs `pnpm check` + a production build + a secret scan before anything leaves the machine. Never bypass it (`--no-verify`) for a public push.
+- Never commit secrets, tokens, private keys, or real `.env` files. The pre-push scan blocks the obvious cases; do not rely on it as the only line of defence.
+- The repo itself is on display — it *is* the pillar-3 artifact. Clean history, clear commits, green tree.
+
 ## Decisions
 
 All material decisions are recorded as ADRs in `docs/adr/`. Read `docs/strategy.md` for the full positioning rationale before proposing content or design changes.

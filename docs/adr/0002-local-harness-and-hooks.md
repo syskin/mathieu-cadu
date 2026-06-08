@@ -11,7 +11,9 @@
 
 ### Deux couches de hooks
 
-**Git (natif, zéro dépendance)** — `core.hooksPath = .githooks` (câblé par le script `prepare` au `pnpm install`). `.githooks/pre-commit` lance `pnpm check` → commit bloqué si rouge.
+**Git (natif, zéro dépendance)** — `core.hooksPath = .githooks` (câblé par le script `prepare` au `pnpm install`).
+- `pre-commit` lance `pnpm check` → commit bloqué si rouge.
+- `pre-push` (frontière publique — remote `git@github.com:syskin/mathieu-cadu.git` est **public**) lance `pnpm check` + **build de prod** + **scan secrets** (clés privées, fichiers `.env` trackés). Push bloqué si rouge. Plus lourd que pre-commit car un push public est rare et à fort enjeu.
 
 **Claude Code (`.claude/settings.json`, committé)** — harness agentique :
 - `PostToolUse` (matcher `Edit|Write`) → `post-content-edit.mjs` : si édition sous `src/content/`, revalide et renvoie l'erreur à l'agent (exit 2). Feedback live.
