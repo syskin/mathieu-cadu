@@ -3,7 +3,7 @@ import { z } from "zod";
 /** Article kinds — the recurring content engine (XP, sides, tool tests, notes). */
 export const ArticleKind = z.enum([
   "retour-xp",
-  "side-project",
+  "chantier",
   "test-outil",
   "note",
 ]);
@@ -11,7 +11,7 @@ export type ArticleKind = z.infer<typeof ArticleKind>;
 
 export const KIND_LABEL: Record<ArticleKind, string> = {
   "retour-xp": "Retour d'expérience",
-  "side-project": "Side project",
+  chantier: "Chantier",
   "test-outil": "Test d'outil",
   note: "Note",
 };

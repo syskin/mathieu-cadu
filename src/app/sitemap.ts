@@ -7,13 +7,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: site.url, lastModified: now, changeFrequency: "weekly", priority: 1 },
     {
-      url: `${site.url}/ecrits`,
+      url: `${site.url}/carnet`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     ...getPublished().map((a) => ({
-      url: `${site.url}/ecrits/${a.slug}`,
+      url: `${site.url}/carnet/${a.slug}`,
       lastModified: new Date(`${a.date}T00:00:00`),
       changeFrequency: "monthly" as const,
       priority: 0.7,

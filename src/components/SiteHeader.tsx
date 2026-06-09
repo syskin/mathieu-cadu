@@ -12,11 +12,11 @@ export function SiteHeader() {
           {site.name}
         </Link>
         <nav className="flex items-center gap-5 text-sm text-muted">
-          <Link href="/ecrits" className="transition-colors hover:text-ink">
-            Écrits
+          <Link href="/carnet" className="transition-colors hover:text-ink">
+            Carnet
           </Link>
-          <Link href="/#travaux" className="transition-colors hover:text-ink">
-            Travaux
+          <Link href="/#projets" className="transition-colors hover:text-ink">
+            Projets
           </Link>
           <a href={site.links.github} className="transition-colors hover:text-ink">
             GitHub

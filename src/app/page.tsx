@@ -49,9 +49,9 @@ export default function Home() {
       {latest.length > 0 ? (
         <section className="border-t border-line py-12">
           <div className="flex items-baseline justify-between">
-            <h2 className="font-display text-xl font-bold tracking-tight">Derniers écrits</h2>
+            <h2 className="font-display text-xl font-bold tracking-tight">Carnet</h2>
             <Link
-              href="/ecrits"
+              href="/carnet"
               className="text-sm font-medium text-accent underline-offset-4 hover:underline"
             >
               Tout voir ↗
@@ -63,7 +63,7 @@ export default function Home() {
                 key={a.slug}
                 className="border-t border-line py-5 first:border-t-0 first:pt-0"
               >
-                <Link href={`/ecrits/${a.slug}`} className="group block">
+                <Link href={`/carnet/${a.slug}`} className="group block">
                   <div className="flex items-center gap-3 text-xs text-faint">
                     <span className="font-medium text-accent">{KIND_LABEL[a.kind]}</span>
                     <span>{frDate(a.date)}</span>
@@ -79,9 +79,9 @@ export default function Home() {
         </section>
       ) : null}
 
-      <section id="travaux" className="scroll-mt-20 border-t border-line py-12">
+      <section id="projets" className="scroll-mt-20 border-t border-line py-12">
         <div className="flex items-baseline justify-between">
-          <h2 className="font-display text-xl font-bold tracking-tight">Travaux</h2>
+          <h2 className="font-display text-xl font-bold tracking-tight">Projets</h2>
           <span className="text-sm text-faint">{projects.length} projets</span>
         </div>
 

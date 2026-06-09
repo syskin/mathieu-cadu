@@ -42,5 +42,17 @@ Clean, professional, scannable — NOT too plain, NOT overly technical (no spec-
 - NOT identical card grids of projects.
 - No gradient text, no glassmorphism, no buzzword soup ("passionate full-stack developer").
 
+## Terminologie (entités) — à respecter partout
+
+Code en anglais (stable) ; labels FR figés ci-dessous. Ne PAS réintroduire "Travaux", "Écrits", ni le kind "side-project".
+
+| Entité (code) | FR / section | Route | Sous-types (code → label FR) |
+|---|---|---|---|
+| `Project` | **Projets** (ce que je construis) | `/#projets` | statut: `live`→En ligne, `killed`→Arrêté, `dormant`→En pause · surfaces: web/ios/android/api/infra/cli → Web/iOS/Android/API/Infra/CLI |
+| `Article` | **Carnet** (ce que j'écris) | `/carnet`, `/carnet/[slug]` | kind: `retour-xp`→Retour d'expérience, `chantier`→Chantier (avancement d'un side), `test-outil`→Test d'outil, `note`→Note |
+| `Source` | provenance d'un fait | — | `mathieu` / `linkedin` / `url` / `repo` / `commit` / `dashboard` |
+
+Un **Projet** = ce qui est construit (Boney, Content-LD…). Un **Chantier** (article) = le journal d'avancement d'un side ; ça parle d'un Projet, ce n'en est pas un.
+
 ## Content shape
 Typed rail (`src/content/`): projects carry status (live / killed / dormant), surfaces, stack, and (when sourced) build evidence. The status + lesson is the differentiator and must be visible, not buried.
