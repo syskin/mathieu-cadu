@@ -30,7 +30,9 @@ export default function Home() {
       />
 
       <header className="mx-auto flex w-full max-w-3xl items-center justify-between px-6 py-6">
-        <span className="font-semibold tracking-tight">{site.name}</span>
+        <span className="font-display text-[1.0625rem] font-bold tracking-tight">
+          {site.name}
+        </span>
         <nav className="flex items-center gap-5 text-sm text-muted">
           <a href={site.links.github} className="transition-colors hover:text-ink">
             GitHub
@@ -44,7 +46,7 @@ export default function Home() {
       <main className="mx-auto w-full max-w-3xl flex-1 px-6">
         <section className="py-16 sm:py-24">
           <p className="text-sm font-semibold text-accent">{site.role}</p>
-          <h1 className="mt-4 text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
+          <h1 className="mt-4 font-display text-[clamp(2.5rem,1.4rem+3.4vw,3.75rem)] font-extrabold leading-[1.04] tracking-tight">
             Je construis des écosystèmes complets : web, mobile, infra.
           </h1>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
@@ -55,7 +57,7 @@ export default function Home() {
 
         <section className="border-t border-line py-12">
           <div className="flex items-baseline justify-between">
-            <h2 className="text-xl font-bold tracking-tight">Travaux</h2>
+            <h2 className="font-display text-xl font-bold tracking-tight">Travaux</h2>
             <span className="text-sm text-faint">{projects.length} projets</span>
           </div>
 
@@ -66,7 +68,9 @@ export default function Home() {
                 className="border-t border-line py-7 first:border-t-0 first:pt-0"
               >
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-                  <h3 className="text-lg font-semibold tracking-tight">{p.name}</h3>
+                  <h3 className="font-display text-lg font-semibold tracking-tight">
+                    {p.name}
+                  </h3>
                   <StatusBadge status={p.status} />
                   <span className="text-sm text-faint">{p.dates}</span>
                 </div>

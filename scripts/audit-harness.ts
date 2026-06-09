@@ -42,8 +42,15 @@ for (const f of ["src/app/sitemap.ts", "src/app/robots.ts", "src/app/layout.tsx"
   if (!existsSync(join(root, f))) fail(`SEO rail missing: ${f}`);
 }
 
-// 4. Governance present.
-for (const f of ["AGENTS.md", "CLAUDE.md", "docs/strategy.md", "docs/SOURCES.md"]) {
+// 4. Governance present (incl. brand foundation).
+for (const f of [
+  "AGENTS.md",
+  "CLAUDE.md",
+  "docs/strategy.md",
+  "docs/SOURCES.md",
+  "PRODUCT.md",
+  "DESIGN.md",
+]) {
   if (!existsSync(join(root, f))) fail(`governance doc missing: ${f}`);
 }
 const adrDir = join(root, "docs/adr");

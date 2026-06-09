@@ -1,24 +1,29 @@
 @import "tailwindcss";
 
 /*
- * Theme: warm light + one warm accent. Sober, professional, scannable.
- * Neutrals tinted toward the brand hue (~70°); accent is a warm ember (~45°).
+ * Design system: "Atelier / craft" — palette "Terre & laiton".
+ * Warm material tones, espresso ink, bronze/brass + terracotta accents.
+ * Flat warm treatment (no texture). Full system: DESIGN.md.
  */
 @theme {
-  --color-bg: oklch(0.985 0.006 75);
-  --color-surface: oklch(0.965 0.008 75);
-  --color-ink: oklch(0.24 0.012 65);
-  --color-muted: oklch(0.52 0.012 65);
-  --color-faint: oklch(0.66 0.01 65);
-  --color-line: oklch(0.9 0.008 70);
-  --color-accent: oklch(0.62 0.16 45);
-  --color-accent-soft: oklch(0.95 0.03 60);
+  --color-bg: oklch(0.955 0.012 75);
+  --color-surface: oklch(0.925 0.014 72);
+  --color-ink: oklch(0.26 0.022 55);
+  --color-muted: oklch(0.5 0.018 58);
+  --color-faint: oklch(0.62 0.014 60);
+  --color-line: oklch(0.88 0.012 72);
 
-  --color-live: oklch(0.55 0.11 150);
-  --color-killed: oklch(0.56 0.13 32);
-  --color-dormant: oklch(0.62 0.012 65);
+  --color-accent: oklch(0.55 0.12 70);
+  --color-brass: oklch(0.72 0.12 85);
+  --color-terracotta: oklch(0.58 0.14 36);
 
-  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --color-live: oklch(0.55 0.1 150);
+  --color-killed: oklch(0.57 0.14 35);
+  --color-dormant: oklch(0.62 0.015 60);
+
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
 }
 
 html {
@@ -29,7 +34,7 @@ html {
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
 }
 
 ::selection {

@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
-import { Archivo } from "next/font/google";
+import { Bricolage_Grotesque, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 
-const archivo = Archivo({
-  variable: "--font-archivo",
+const display = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["600", "700", "800"],
+});
+
+const body = Hanken_Grotesk({
+  variable: "--font-hanken",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -38,7 +44,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang={site.lang} className={`${archivo.variable} h-full`}>
+    <html
+      lang={site.lang}
+      className={`${display.variable} ${body.variable} h-full`}
+    >
       <body className="min-h-full flex flex-col bg-bg text-ink">{children}</body>
     </html>
   );

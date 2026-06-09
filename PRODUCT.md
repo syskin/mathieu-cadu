@@ -18,8 +18,19 @@ Engineer who ships complete ecosystems and owns his calls (incl. the kills): *"I
 2. **Multi-platform ecosystems** — web + native + infra around one idea. (Boney: web/iOS/Android/Supabase.)
 3. **Disciplined AI engineering** — framed agentic flows, not vibe coding. Shown by artifacts, never claimed.
 
-## Tone
-Sober, precise, confident without bragging. French-first. Show, don't tell. A killed project shown with its lesson is a feature, not a confession.
+## Voix & copy — Carnet d'atelier
+First person ("je"), concrete, terse, factual. The builder noting what he made, what lives, what he stopped and why. Owns the calls, including the kills. Show, don't tell: a killed project with its lesson is a feature, not a confession.
+
+Rules:
+- **Langue : FR uniquement** (pour l'instant). EN plus tard si besoin.
+- 1re personne, phrases courtes, voix active.
+- Faits, dates, statuts, chiffres (sourcés) > adjectifs.
+- Bannis : buzzwords ("passionné", "expert", "ninja", "rockstar", "fullstack passionné"), superlatifs creux, tiret cadratin (`—`), jargon marketing.
+- Un arrêt se dit simplement, suivi de la leçon. Pas d'excuse, pas de drame.
+
+Exemples (avant → après) :
+- "Développeur passionné par les nouvelles technologies" → "Je construis des écosystèmes : web, mobile, infra."
+- "Projet malheureusement abandonné faute de traction" → "Content-LD, arrêté en 2023. Leçon : valider le marché avant le moteur."
 
 ## Design target (balance)
 Clean, professional, scannable — NOT too plain, NOT overly technical (no spec-sheet costume), NOT over-artistic. The key facts (who he is, what he builds, the projects, how to reach him) graspable in one glance.
