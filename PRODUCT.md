@@ -7,8 +7,13 @@ Personal branding site for Mathieu Cadu. Design IS the product. Full positioning
 ## Identity (read this first)
 Mathieu is an **engineer / developer** — NOT a "product" profile. The headline is engineering. Product judgment, lucidity and ecosystem-thinking are *traits* that set him apart, never the job title.
 
+## Intent (read this second)
+This is **NOT** a "hire me / available" page. No availability badges, no CV-selling, no solicitation. It is a **humble, sober showcase of expertise** that demonstrates — without claiming — that Mathieu is skilled and **technically current**. Proof comes from artifacts: an active Carnet on recent tools, real projects, depth. Never from adjectives ("expert", "senior", "available").
+
+The **Carnet is the heart**: publishing regularly on current tech IS the proof of being up to date. The home is a quiet statement of what he does and writes, not a pitch.
+
 ## Users
-Audience #1: recruiters / employers, reading for **senior / lead software engineer** level. They skim fast, distrust buzzwords, value evidence. Main info must land at a glance.
+Read by peers and, incidentally, recruiters. They skim fast, distrust buzzwords, value evidence. The site earns credibility by showing craft, never by asking for anything.
 
 ## Positioning (the one idea)
 Engineer who ships complete ecosystems and owns his calls (incl. the kills): *"Ingénieur logiciel. Je construis des écosystèmes complets — web, mobile, infra — et j'assume mes choix : ceux qui vivent comme ceux que j'ai enterrés."*
@@ -32,11 +37,11 @@ Exemples (avant → après) :
 - "Développeur passionné par les nouvelles technologies" → "Je construis des écosystèmes : web, mobile, infra."
 - "Projet malheureusement abandonné faute de traction" → "Content-LD, arrêté en 2023. Leçon : valider le marché avant le moteur."
 
-## Design target (balance)
-Clean, professional, scannable — NOT too plain, NOT overly technical (no spec-sheet costume), NOT over-artistic. The key facts (who he is, what he builds, the projects, how to reach him) graspable in one glance.
+## Design target
+Concept: **établi d'ingénieur** — atelier warmth + technical precision and depth. NOT flat: layered surfaces, subtle elevation, hairline grid, monospace for real data (dates, status, stack). NOT over-artistic, NOT a neon-terminal cliché. **Bi-mode light/dark** (the dark mode carries the technical mood). Landing = a compact bento of 3 cards (Identité, Carnet, Projets→/projets); no project list on the home.
 
 ## Anti-references (AI-slop traps to avoid)
-- NOT the generic dev-portfolio: dark mode + monospace + neon/terminal green.
+- NOT the neon/terminal-green dev cliché. (Warm dark mode + monospace used for real data are fine; neon-on-black is the trap.)
 - NOT cream editorial "indie hacker" template.
 - NOT the hero-metric template (big number + gradient + supporting stats).
 - NOT identical card grids of projects.
@@ -48,7 +53,7 @@ Code en anglais (stable) ; labels FR figés ci-dessous. Ne PAS réintroduire "Tr
 
 | Entité (code) | FR / section | Route | Sous-types (code → label FR) |
 |---|---|---|---|
-| `Project` | **Projets** (ce que je construis) | `/#projets` | statut: `live`→En ligne, `killed`→Arrêté, `dormant`→En pause · surfaces: web/ios/android/api/infra/cli → Web/iOS/Android/API/Infra/CLI |
+| `Project` | **Projets** (ce que je construis) | `/projets` | statut: `live`→En ligne, `killed`→Arrêté, `dormant`→En pause · surfaces: web/ios/android/api/infra/cli → Web/iOS/Android/API/Infra/CLI |
 | `Article` | **Carnet** (ce que j'écris) | `/carnet`, `/carnet/[slug]` | kind: `retour-xp`→Retour d'expérience, `chantier`→Chantier (avancement d'un side), `test-outil`→Test d'outil, `note`→Note |
 | `Source` | provenance d'un fait | — | `mathieu` / `linkedin` / `url` / `repo` / `commit` / `dashboard` |
 

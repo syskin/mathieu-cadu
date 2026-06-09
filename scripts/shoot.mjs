@@ -13,6 +13,7 @@ const BASE = `http://127.0.0.1:${PORT}`;
 const OUT = ".screenshots";
 const ROUTES = [
   { path: "/", name: "home" },
+  { path: "/projets", name: "projets" },
   { path: "/carnet", name: "carnet" },
   { path: "/carnet/a-propos-du-carnet", name: "article" },
 ];
@@ -52,6 +53,21 @@ try {
   const mobile = await browser.newPage({ viewport: { width: 390, height: 844 } });
   await mobile.goto(BASE, { waitUntil: "networkidle" });
   await mobile.screenshot({ path: `${OUT}/home-mobile.png`, fullPage: true });
+
+  // Dark mode (home + projets) — emulate prefers-color-scheme: dark.
+  const darkCtx = await browser.newContext({
+    colorScheme: "dark",
+    viewport: { width: 1280, height: 900 },
+  });
+  const darkPage = await darkCtx.newPage();
+  for (const r of [
+    { path: "/", name: "home-dark" },
+    { path: "/projets", name: "projets-dark" },
+  ]) {
+    await darkPage.goto(BASE + r.path, { waitUntil: "networkidle" });
+    await darkPage.screenshot({ path: `${OUT}/${r.name}.png`, fullPage: true });
+  }
+  await darkCtx.close();
 
   await browser.close();
   console.log(`\n✓ screenshots in ${OUT}/`);

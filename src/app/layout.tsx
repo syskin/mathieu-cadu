@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Hanken_Grotesk } from "next/font/google";
+import { Bricolage_Grotesque, Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -16,6 +16,15 @@ const body = Hanken_Grotesk({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
+
+const mono = JetBrains_Mono({
+  variable: "--font-jetbrains",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+});
+
+// Set the theme before paint to avoid a flash (reads localStorage / prefers).
+const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.classList.add('dark');}catch(e){}})();`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -48,9 +57,11 @@ export default function RootLayout({
   return (
     <html
       lang={site.lang}
-      className={`${display.variable} ${body.variable} h-full`}
+      suppressHydrationWarning
+      className={`${display.variable} ${body.variable} ${mono.variable} h-full`}
     >
       <body className="min-h-full flex flex-col bg-bg text-ink">
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <SiteHeader />
         {children}
         <SiteFooter />

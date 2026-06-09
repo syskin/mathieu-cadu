@@ -1,45 +1,103 @@
 @import "tailwindcss";
 
 /*
- * Design system: "Atelier / craft" — palette "Terre & laiton".
- * Warm material tones, espresso ink, bronze/brass + terracotta accents.
- * Flat warm treatment (no texture). Full system: DESIGN.md.
+ * Design system: "Établi d'ingénieur" — atelier warmth + technical depth.
+ * Bi-mode: tokens live in :root (light) / html.dark (dark), exposed to Tailwind
+ * via @theme inline so they swap at runtime. Full system: DESIGN.md.
  */
-@theme {
-  --color-bg: oklch(0.955 0.012 75);
-  --color-surface: oklch(0.925 0.014 72);
-  --color-ink: oklch(0.26 0.022 55);
-  --color-muted: oklch(0.5 0.018 58);
-  --color-faint: oklch(0.62 0.014 60);
-  --color-line: oklch(0.88 0.012 72);
-
-  --color-accent: oklch(0.55 0.12 70);
-  --color-brass: oklch(0.72 0.12 85);
-  --color-terracotta: oklch(0.58 0.14 36);
-
-  --color-live: oklch(0.55 0.1 150);
-  --color-killed: oklch(0.57 0.14 35);
-  --color-dormant: oklch(0.62 0.015 60);
+@theme inline {
+  --color-bg: var(--c-bg);
+  --color-surface: var(--c-surface);
+  --color-raised: var(--c-raised);
+  --color-ink: var(--c-ink);
+  --color-muted: var(--c-muted);
+  --color-faint: var(--c-faint);
+  --color-line: var(--c-line);
+  --color-accent: var(--c-accent);
+  --color-brass: var(--c-brass);
+  --color-terracotta: var(--c-terracotta);
+  --color-live: var(--c-live);
+  --color-killed: var(--c-killed);
+  --color-dormant: var(--c-dormant);
 
   --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
   --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
 }
 
+:root {
+  --c-bg: oklch(0.965 0.01 80);
+  --c-surface: oklch(0.94 0.012 78);
+  --c-raised: oklch(0.99 0.006 80);
+  --c-ink: oklch(0.24 0.02 55);
+  --c-muted: oklch(0.48 0.018 58);
+  --c-faint: oklch(0.6 0.014 60);
+  --c-line: oklch(0.86 0.012 72);
+  --c-accent: oklch(0.55 0.13 65);
+  --c-brass: oklch(0.7 0.12 85);
+  --c-terracotta: oklch(0.55 0.14 36);
+  --c-live: oklch(0.53 0.11 150);
+  --c-killed: oklch(0.56 0.14 35);
+  --c-dormant: oklch(0.62 0.015 60);
+  --grid-line: oklch(0.84 0.012 72 / 0.45);
+  --shadow-tile: 0 1px 2px oklch(0.2 0.02 55 / 0.05), 0 6px 20px oklch(0.2 0.02 55 / 0.04);
+}
+
+html.dark {
+  --c-bg: oklch(0.2 0.012 60);
+  --c-surface: oklch(0.24 0.014 58);
+  --c-raised: oklch(0.275 0.016 58);
+  --c-ink: oklch(0.93 0.012 78);
+  --c-muted: oklch(0.72 0.013 72);
+  --c-faint: oklch(0.56 0.013 66);
+  --c-line: oklch(0.33 0.014 60);
+  --c-accent: oklch(0.76 0.14 65);
+  --c-brass: oklch(0.78 0.12 85);
+  --c-terracotta: oklch(0.7 0.14 38);
+  --c-live: oklch(0.74 0.13 150);
+  --c-killed: oklch(0.72 0.15 38);
+  --c-dormant: oklch(0.6 0.013 66);
+  --grid-line: oklch(0.42 0.014 60 / 0.5);
+  --shadow-tile: 0 1px 2px oklch(0 0 0 / 0.35), inset 0 1px 0 oklch(1 0 0 / 0.03);
+}
+
 html {
-  background: var(--color-bg);
-  color: var(--color-ink);
+  background: var(--c-bg);
+  color: var(--c-ink);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
-
 body {
   font-family: var(--font-body);
 }
-
 ::selection {
   background: var(--color-accent);
-  color: var(--color-bg);
+  color: var(--c-bg);
+}
+
+/* Faint technical grid — instrument texture, very low contrast. */
+.grid-bg {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Depth — tiles sit above the page. */
+.tile-depth {
+  box-shadow: var(--shadow-tile);
+}
+
+/* Theme toggle glyph: moon in light (→ go dark), sun in dark (→ go light). */
+.theme-sun {
+  display: none;
+}
+html.dark .theme-moon {
+  display: none;
+}
+html.dark .theme-sun {
+  display: inline;
 }
 
 /* Bento — staggered entrance (opacity/transform only) + subtle hover. */
@@ -59,7 +117,7 @@ body {
   transition:
     border-color 0.2s ease,
     transform 0.2s ease,
-    background-color 0.2s ease;
+    box-shadow 0.2s ease;
 }
 .bento-tile:hover {
   transform: translateY(-2px);
@@ -126,7 +184,7 @@ body {
   font-style: italic;
 }
 .prose-craft code {
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 0.9em;
   background: var(--color-surface);
   padding: 0.15em 0.4em;

@@ -2,51 +2,53 @@
 
 Design system. Concept, tokens, rules. Visual source of truth. Brief: `PRODUCT.md`.
 
-## Concept directeur — Atelier / craft
+## Concept directeur — Établi d'ingénieur (atelier + technique)
 
-A builder's workshop. Warm, material, concrete, human. The work is *made*, not talked about. Anti-corporate, but precise. No skeuomorphism (no wood textures), no "handcrafted indie" cream template. Craft comes from warm material tones + a humanist type with character + clean execution.
+A builder's workbench. Warm and material like an atelier, but with the precision and depth of an instrument: layered surfaces, hairline grid, monospace for real data. The work is *made*, shown, never bragged about. No skeuomorphism (no wood textures), no neon-terminal cliché, no "handcrafted indie" cream template. Depth + monospace data carry the technical feel; warmth keeps it human.
 
 ## Register
-Brand (design IS the product). Audience: recruiters / senior-lead eng. Balance: not too plain, not overly technical, not over-artistic. Key facts at a glance.
+Brand (design IS the product). Intent: humble, sober showcase of expertise + technical currency. NOT a "hire me / available" page. Key facts at a glance.
 
-## Color — "Terre & laiton" (OKLCH)
+## Color — bi-mode (OKLCH)
 
-Material warmth: sand/plaster base, espresso ink, brass + terracotta. Neutrals tinted ~70°. Treatment: flat warm (no texture).
+Runtime tokens: `--c-*` defined in `:root` (light) and `html.dark` (dark), exposed to Tailwind via `@theme inline`. Toggle persists in `localStorage`; default follows `prefers-color-scheme`. Never `#000`/`#fff`.
 
-| Token | OKLCH | Role |
+Light — "Terre & laiton" (warm sand, espresso ink, bronze + terracotta):
+| Token | light | role |
 |---|---|---|
-| `--color-bg` | `0.955 0.012 75` | page (warm sand/plaster) |
-| `--color-surface` | `0.925 0.014 72` | raised blocks, subtle fills |
-| `--color-ink` | `0.26 0.022 55` | primary text (espresso) |
-| `--color-muted` | `0.50 0.018 58` | secondary text |
-| `--color-faint` | `0.62 0.014 60` | metadata / tertiary |
-| `--color-line` | `0.88 0.012 72` | hairlines |
-| `--color-accent` | `0.55 0.12 70` | bronze — text-safe accent (links, kicker, marks) |
-| `--color-brass` | `0.72 0.12 85` | brass — fills, dots, decoration only (low contrast for text) |
-| `--color-terracotta` | `0.58 0.14 36` | secondary signal |
-| `--color-live` | `0.55 0.10 150` | status: en ligne |
-| `--color-killed` | `0.57 0.14 35` | status: arrêté (terracotta family) |
-| `--color-dormant` | `0.62 0.015 60` | status: en pause |
+| `bg` / `surface` / `raised` | `0.965 0.01 80` / `0.94 0.012 78` / `0.99 0.006 80` | page / tiles / lifted |
+| `ink` / `muted` / `faint` | `0.24 0.02 55` / `0.48 0.018 58` / `0.6 0.014 60` | text tiers |
+| `line` | `0.86 0.012 72` | hairlines / grid |
+| `accent` | `0.55 0.13 65` | bronze, text-safe |
 
-Strategy: **Restrained** — warm neutrals + bronze accent ≤10%. Brass/terracotta are accents-of-accent, used sparingly. Never `#000`/`#fff`.
+Dark — "Atelier sombre / instrument" (warm charcoal, ivory ink, ember):
+| Token | dark | role |
+|---|---|---|
+| `bg` / `surface` / `raised` | `0.2 0.012 60` / `0.24 0.014 58` / `0.27 0.016 58` | page / tiles / lifted |
+| `ink` / `muted` / `faint` | `0.93 0.012 78` / `0.72 0.013 72` / `0.56 0.013 66` | text tiers |
+| `line` | `0.33 0.014 60` | hairlines / grid |
+| `accent` | `0.74 0.14 65` | ember, brighter for dark |
+
+Shared roles: `brass` (fills/dots, not text), `terracotta`, `live`/`killed`/`dormant` (status), tuned per mode. Strategy: **Restrained** — warm neutrals + one accent ≤10%.
 
 ## Typography
+- **Display** — Bricolage Grotesque (`--font-display`), 600–800. Hero, section + project titles.
+- **Body** — Hanken Grotesk (`--font-body`), 400–700. Prose, descriptions.
+- **Mono** — JetBrains Mono (`--font-mono`), for **real data only**: dates, status, kinds, stack, surfaces. Meaningful (data), not costume. The technical signal.
+- No em dashes in copy (`:` `,` `()`). Fluid `clamp()` on hero, ≥1.25 ratio. Reading measure ≤72ch.
 
-- **Display** — Bricolage Grotesque (`--font-display`), weights 600–800. Headings, hero, section titles, project names. Contemporary, lightly irregular = the "made" character.
-- **Body** — Hanken Grotesk (`--font-body` / default sans), weights 400–700. Everything else. Clean humanist.
-- No monospace (would read as costume here). No em dashes in copy (use `:` `,` `()`).
-- Scale: fluid `clamp()` on the hero, modular ≥1.25 ratio. Body 1rem–1.0625rem, line-length ≤72ch.
+## Depth & texture (the "not flat" layer)
+- Tiers: `bg` < `surface` (tiles) < `raised`. Tiles carry a subtle elevation (`.tile-depth`) + `--color-line` border.
+- Faint technical **grid** background (`.grid-bg`, `--grid-line`, 32px) — very low contrast, instrument feel.
+- Hover: subtle lift (transform) + accent border. Motion = opacity/transform only, ease-out, `prefers-reduced-motion` respected.
 
-## Layout & rhythm
-- Max content width ~ `48rem` (3xl), left-aligned. Generous vertical rhythm, varied (not uniform padding).
-- Lists with hairline separators over identical card grids. No nested cards.
-- Sections separated by `--color-line` rules.
+## Layout
+- Landing = **bento of 3 cards** (Identité large · Carnet · Projets → `/projets`). No project list on home. Tiles content-height (`items-start`).
+- Pages: max ~`64rem` shell; lists with hairline separators over identical card grids; no nested cards.
 
 ## Components
-- **StatusBadge** (`src/components/StatusBadge.tsx`): dot + label. live→`--color-live`, killed→`--color-killed`, dormant→`--color-dormant`.
+- **StatusBadge**: mono label + dot. live/killed/dormant → status tokens.
+- **ThemeToggle**: client, toggles `html.dark` + persists; no-flash inline script in layout.
 
-## Motion
-- None for v1 (flat warm, fast). Entrance choreography optional later via the `animate` pass.
-
-## Bans (project-specific, on top of brand register)
-- No mono costume. No em dashes. No gradient text, no glassmorphism. No personal email in markup (contact via LinkedIn/GitHub). No skeuomorphic textures.
+## Bans (on top of brand register)
+- No neon-terminal. No mono as decoration (data only). No em dashes. No gradient text, no glassmorphism, no skeuomorphic textures. No personal email in markup. No availability/CV-selling language.
