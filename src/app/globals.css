@@ -42,6 +42,36 @@ body {
   color: var(--color-bg);
 }
 
+/* Bento — staggered entrance (opacity/transform only) + subtle hover. */
+@keyframes bento-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.bento-tile {
+  opacity: 0;
+  animation: bento-rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    background-color 0.2s ease;
+}
+.bento-tile:hover {
+  transform: translateY(-2px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .bento-tile {
+    opacity: 1;
+    animation: none;
+    transform: none;
+  }
+}
+
 /* Reading layer — long-form articles. Comfortable measure, fluid rhythm. */
 .prose-craft {
   max-width: 42rem;
