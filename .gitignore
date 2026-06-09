@@ -45,3 +45,6 @@ next-env.d.ts
 
 # harness — local identity (no PII in the tree)
 .githooks/identity.local
+
+# visual check artifacts
+.screenshots/

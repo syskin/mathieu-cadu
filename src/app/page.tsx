@@ -46,14 +46,16 @@ const personJsonLd = {
   sameAs: [site.links.linkedin, site.links.github],
 };
 
+const tile =
+  "bento-tile flex flex-col rounded-xl border border-line bg-surface p-6 min-h-[8.5rem] hover:border-accent/40";
+
 export default function Home() {
   const latest = getPublished().slice(0, 3);
+  const live = projects.filter((p) => p.status === "live").length;
   const killed = projects.filter((p) => p.status === "killed").length;
   const surfaces = [...new Set(projects.flatMap((p) => p.surfaces))];
   const stack = [...new Set(projects.flatMap((p) => p.stack))].slice(0, 8);
-
-  const tile =
-    "bento-tile flex flex-col rounded-xl border border-line bg-surface p-6 hover:border-accent/40";
+  const s = (n: number) => (n > 1 ? "s" : "");
 
   return (
     <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-10 sm:py-14">
@@ -62,10 +64,10 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
 
-      <section className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-4 md:[grid-auto-rows:11rem]">
+      <section className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2 md:grid-cols-4">
         {/* Identité */}
         <div
-          className={`${tile} justify-center sm:col-span-2 md:col-span-3 md:row-span-2`}
+          className={`${tile} justify-center sm:col-span-2 md:col-span-3`}
           style={{ animationDelay: "0ms" }}
         >
           <p className="text-sm font-semibold text-accent">{site.role}</p>
@@ -108,14 +110,13 @@ export default function Home() {
           </p>
           <p className="text-sm text-muted">projets</p>
           <p className="mt-auto pt-3 text-sm text-faint">
-            dont {killed} arrêté{killed > 1 ? "s" : ""}, assumé
-            {killed > 1 ? "s" : ""}
+            dont {killed} arrêté{s(killed)}, assumé{s(killed)}
           </p>
         </div>
 
         {/* Carnet */}
         <div
-          className={`${tile} sm:col-span-2 md:col-span-1 md:row-span-2`}
+          className={`${tile} sm:col-span-2 md:col-span-2`}
           style={{ animationDelay: "180ms" }}
         >
           <div className="flex items-baseline justify-between">
@@ -127,12 +128,17 @@ export default function Home() {
               Tout voir ↗
             </Link>
           </div>
-          <ul className="mt-4 flex flex-col gap-4">
+          <ul className="mt-4 flex flex-col gap-3">
             {latest.map((a) => (
               <li key={a.slug}>
-                <Link href={`/carnet/${a.slug}`} className="group block">
-                  <span className="text-xs text-accent">{KIND_LABEL[a.kind]}</span>
-                  <span className="mt-0.5 block text-sm font-medium leading-snug transition-colors group-hover:text-accent">
+                <Link
+                  href={`/carnet/${a.slug}`}
+                  className="group flex items-baseline gap-3"
+                >
+                  <span className="shrink-0 text-xs text-accent">
+                    {KIND_LABEL[a.kind]}
+                  </span>
+                  <span className="text-sm font-medium leading-snug transition-colors group-hover:text-accent">
                     {a.title}
                   </span>
                 </Link>
@@ -141,11 +147,21 @@ export default function Home() {
           </ul>
         </div>
 
+        {/* Stack */}
+        <div className={tile} style={{ animationDelay: "240ms" }}>
+          <h2 className="font-display text-lg font-bold tracking-tight">Stack</h2>
+          <div className="mt-auto flex flex-wrap gap-x-3 gap-y-1 pt-3 text-xs text-faint">
+            {stack.map((t) => (
+              <span key={t}>{stackLabel(t)}</span>
+            ))}
+          </div>
+        </div>
+
         {/* Écosystèmes */}
         <Link
           href="#projets"
-          className={`${tile} sm:col-span-2 md:col-span-3`}
-          style={{ animationDelay: "240ms" }}
+          className={`${tile} sm:col-span-2 md:col-span-2`}
+          style={{ animationDelay: "300ms" }}
         >
           <h2 className="font-display text-lg font-bold tracking-tight">Écosystèmes</h2>
           <p className="mt-1 text-sm text-muted">
@@ -153,47 +169,39 @@ export default function Home() {
             idée.
           </p>
           <div className="mt-auto flex flex-wrap gap-2 pt-4">
-            {surfaces.map((s) => (
+            {surfaces.map((surface) => (
               <span
-                key={s}
+                key={surface}
                 className="rounded-md border border-line px-2.5 py-1 text-xs font-medium text-muted"
               >
-                {SURFACE_LABEL[s] ?? s}
+                {SURFACE_LABEL[surface] ?? surface}
               </span>
             ))}
           </div>
         </Link>
 
-        {/* Projets */}
+        {/* Projets (compteurs → section détaillée) */}
         <Link
           href="#projets"
-          className={`${tile} sm:col-span-1 md:col-span-2`}
-          style={{ animationDelay: "300ms" }}
+          className={`${tile} justify-between sm:col-span-2 md:col-span-2`}
+          style={{ animationDelay: "360ms" }}
         >
-          <div className="flex items-baseline justify-between">
-            <h2 className="font-display text-lg font-bold tracking-tight">Projets</h2>
-            <span className="text-xs text-faint">{projects.length} projets ↓</span>
+          <h2 className="font-display text-lg font-bold tracking-tight">Projets</h2>
+          <div className="flex items-end justify-between pt-3">
+            <p className="text-sm text-muted">
+              <span className="text-live">{live} en ligne</span>
+              {killed > 0 ? (
+                <>
+                  {" · "}
+                  <span className="text-killed">
+                    {killed} arrêté{s(killed)}
+                  </span>
+                </>
+              ) : null}
+            </p>
+            <span className="text-sm font-medium text-accent">Le détail ↓</span>
           </div>
-          <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted">
-            {projects.slice(0, 4).map((p) => (
-              <li key={p.slug} className="font-medium">
-                {p.name}
-              </li>
-            ))}
-          </ul>
         </Link>
-
-        {/* Stack */}
-        <div className={tile} style={{ animationDelay: "360ms" }}>
-          <h2 className="font-display text-lg font-bold tracking-tight">Stack</h2>
-          <div className="mt-auto flex flex-wrap gap-1.5 pt-3">
-            {stack.map((s) => (
-              <span key={s} className="text-xs text-faint">
-                {stackLabel(s)}
-              </span>
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* Section dédiée — Projets détaillés */}
@@ -216,7 +224,7 @@ export default function Home() {
               <p className="mt-2 max-w-2xl text-muted">{p.tagline}</p>
 
               <p className="mt-3 text-sm text-faint">
-                {p.surfaces.map((s) => SURFACE_LABEL[s] ?? s).join(" · ")}
+                {p.surfaces.map((surface) => SURFACE_LABEL[surface] ?? surface).join(" · ")}
               </p>
               <p className="mt-1 text-sm text-faint">
                 {p.stack.map(stackLabel).join(", ")}

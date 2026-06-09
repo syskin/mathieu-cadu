@@ -14,7 +14,7 @@ export const contentLd: ProjectInput = {
   decision:
     "SaaS de templating d'images généré à la volée depuis un simple lien.",
   lesson:
-    "Marché cible jamais clairement identifié, demande surestimée — arrêté après ~1 an. Leçon : valider le marché avant de construire le moteur technique.",
+    "Marché cible jamais clairement identifié, demande surestimée. Arrêté après un an. Valider le marché avant de construire le moteur.",
 
   surfaces: ["web", "api"],
   stack: ["typescript", "nuxtjs", "vuejs", "tailwindcss", "expressjs"],

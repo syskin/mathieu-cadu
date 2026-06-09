@@ -12,6 +12,7 @@
     "harness:supply": "node scripts/harness/supply.mjs",
     "harness:audit": "tsx scripts/audit-harness.ts",
     "test": "vitest run",
+    "shoot": "node scripts/shoot.mjs",
     "check": "tsc --noEmit && eslint && pnpm validate && pnpm harness:security && vitest run && pnpm harness:audit",
     "prepare": "git config core.hooksPath .githooks || true"
   },
@@ -33,6 +34,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.7",
+    "playwright": "^1.60.0",
     "tailwindcss": "^4",
     "tsx": "^4.22.4",
     "typescript": "^5",
