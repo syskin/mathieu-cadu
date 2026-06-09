@@ -9,6 +9,7 @@
  * Exit 0 = clean, exit 1 = fail.
  */
 import { projects } from "../src/content/projects";
+import { getAllMeta } from "../src/lib/writing";
 
 const PLACEHOLDER = /\b(TODO|TBD|XXX|FIXME|lorem|à ?remplir)\b|\?\?\?/i;
 
@@ -63,6 +64,14 @@ const dupes = (key: "slug" | "index") => {
 for (const s of dupes("slug")) fail(`duplicate slug "${s}" — slugs must be unique (routing).`);
 for (const i of dupes("index")) fail(`duplicate index ${i} — indexes must be unique (stable ordering).`);
 
+// Writing rail — validate every article's frontmatter (incl. drafts).
+let articleCount = 0;
+try {
+  articleCount = getAllMeta(true).length;
+} catch (e) {
+  fail(`article frontmatter invalid: ${e instanceof Error ? e.message : String(e)}`);
+}
+
 if (errors > 0) {
   console.error(`\nContent validation FAILED: ${errors} issue(s).`);
   process.exit(1);
@@ -76,4 +85,6 @@ const sourced = projects.reduce(
     (p.build?.metrics.length ?? 0),
   0,
 );
-console.log(`✓ Content valid: ${projects.length} project(s), ${sourced} sourced fact(s), 0 unsourced.`);
+console.log(
+  `✓ Content valid: ${projects.length} project(s), ${sourced} sourced fact(s), 0 unsourced; ${articleCount} article(s).`,
+);
