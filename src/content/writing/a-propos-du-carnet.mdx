@@ -1,17 +1,15 @@
 ---
 title: À propos de ce carnet
 date: 2026-06-09
-summary: Pourquoi j'écris ici, et ce que vous y trouverez.
+summary: Pourquoi j'écris ici, et ce qu'on y trouve.
 kind: note
 tags: [méta]
 draft: false
 ---
 
-{/* Article de démarrage — à éditer ou supprimer. Garde la voix "carnet d'atelier". */}
+J'écris ici ce que je fabrique. Pas des tutoriels lissés ni des annonces : des notes d'atelier, datées, écrites pendant que ça se construit. Certaines racontent un produit qui tourne, d'autres un chantier en cours, d'autres encore un outil que j'ai branché pour voir.
 
-J'écris ici ce que je fabrique. Pas des tutoriels lissés : des notes d'atelier, datées, depuis mon quotidien d'ingénieur.
-
-## Ce que je publie
+## Ce qu'on y trouve
 
 - **Retours d'expérience** : ce qui a marché, ce que j'ai cassé, ce que j'en retiens.
 - **Chantiers** : l'avancement réel d'un side, décisions et arbitrages compris.
@@ -19,10 +17,10 @@ J'écris ici ce que je fabrique. Pas des tutoriels lissés : des notes d'atelier
 
 ## Le parti pris
 
-Court, concret, assumé. Je montre, je ne déclame pas. Un échec se dit simplement, avec sa leçon.
+Montrer plutôt que déclamer. Un échec se dit simplement, avec sa leçon ; un succès aussi, avec ses chiffres. Et comme ce site valide son propre contenu au build, ce carnet ne peut pas tricher :
 
 ```ts
-// Exemple : ce site valide son propre contenu au build.
+// Chaque note passe par là avant de shipper.
 const article = articleMetaSchema.parse(frontmatter);
 ```
 

@@ -20,5 +20,5 @@ export const contentLd: ProjectInput = {
   stack: ["typescript", "nuxtjs", "vuejs", "tailwindcss", "expressjs"],
 
   links: [],
-  index: 1,
+  index: 3,
 };
