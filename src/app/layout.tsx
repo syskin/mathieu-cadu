@@ -1,20 +1,14 @@
-import type { Metadata } from "next";
-import { Bricolage_Grotesque, Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Schibsted_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 
-const display = Bricolage_Grotesque({
-  variable: "--font-bricolage",
+const schibsted = Schibsted_Grotesk({
+  variable: "--font-schibsted",
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
-});
-
-const body = Hanken_Grotesk({
-  variable: "--font-hanken",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 const mono = JetBrains_Mono({
@@ -49,6 +43,28 @@ export const metadata: Metadata = {
   alternates: { canonical: site.url },
 };
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#e9edf2" },
+    { media: "(prefers-color-scheme: dark)", color: "#15181f" },
+  ],
+};
+
+// JSON-LD Person — l'identité machine-lisible du site.
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.name,
+  url: site.url,
+  image: `${site.url}/portrait.webp`,
+  jobTitle: site.role,
+  homeLocation: [
+    { "@type": "Place", name: "Angers" },
+    { "@type": "Place", name: "Paris" },
+  ],
+  sameAs: [site.links.linkedin, site.links.github],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -58,10 +74,14 @@ export default function RootLayout({
     <html
       lang={site.lang}
       suppressHydrationWarning
-      className={`${display.variable} ${body.variable} ${mono.variable} h-full`}
+      className={`${schibsted.variable} ${mono.variable} h-full`}
     >
       <body className="min-h-full flex flex-col bg-bg text-ink">
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         <SiteHeader />
         {children}
         <SiteFooter />

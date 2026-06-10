@@ -2,53 +2,74 @@
 
 Design system. Concept, tokens, rules. Visual source of truth. Brief: `PRODUCT.md`.
 
-## Concept directeur — Établi d'ingénieur (atelier + technique)
+## Concept directeur — Le Bento Monolithe (Industrial Overview)
 
-A builder's workbench. Warm and material like an atelier, but with the precision and depth of an instrument: layered surfaces, hairline grid, monospace for real data. The work is *made*, shown, never bragged about. No skeuomorphism (no wood textures), no neon-terminal cliché, no "handcrafted indie" cream template. Depth + monospace data carry the technical feel; warmth keeps it human.
+A fusion of industrial weight and information density. Inspired by technical dashboards and monolithic engineering blocks. The site provides an immediate, structured overview via a bento-style grid of solid monoliths. Authority through structure, precision through density.
 
 ## Register
 Brand (design IS the product). Intent: humble, sober showcase of expertise + technical currency. NOT a "hire me / available" page. Key facts at a glance.
 
 ## Color — bi-mode (OKLCH)
 
-Runtime tokens: `--c-*` defined in `:root` (light) and `html.dark` (dark), exposed to Tailwind via `@theme inline`. Toggle persists in `localStorage`; default follows `prefers-color-scheme`. Never `#000`/`#fff`.
+Direction: **Warm Charcoal & Steel Blue**. Deep technical grays, off-white text. Accent: **Steel Blue** (Bleu Acier) for focus and technical signals.
 
-Light — "Terre & laiton" (warm sand, espresso ink, bronze + terracotta):
+Light — "Acier Froid" (light gray, charcoal ink, steel blue):
 | Token | light | role |
 |---|---|---|
-| `bg` / `surface` / `raised` | `0.965 0.01 80` / `0.94 0.012 78` / `0.99 0.006 80` | page / tiles / lifted |
-| `ink` / `muted` / `faint` | `0.24 0.02 55` / `0.48 0.018 58` / `0.6 0.014 60` | text tiers |
-| `line` | `0.86 0.012 72` | hairlines / grid |
-| `accent` | `0.55 0.13 65` | bronze, text-safe |
+| `bg` / `surface` / `raised` | `0.94 0.01 240` / `0.9 0.015 240` / `0.98 0.005 240` | base / blocks / lifted |
+| `ink` / `muted` / `faint` | `0.15 0.01 240` / `0.4 0.015 240` / `0.55 0.01 240` | text tiers |
+| `line` | `0.8 0.015 240` | hairlines |
+| `accent` | `0.5 0.12 230` | steel blue |
 
-Dark — "Atelier sombre / instrument" (warm charcoal, ivory ink, ember):
+Dark — "Bleu de Minuit" (warm charcoal, ivory ink, luminous steel blue):
 | Token | dark | role |
 |---|---|---|
-| `bg` / `surface` / `raised` | `0.2 0.012 60` / `0.24 0.014 58` / `0.27 0.016 58` | page / tiles / lifted |
-| `ink` / `muted` / `faint` | `0.93 0.012 78` / `0.72 0.013 72` / `0.56 0.013 66` | text tiers |
-| `line` | `0.33 0.014 60` | hairlines / grid |
-| `accent` | `0.74 0.14 65` | ember, brighter for dark |
-
-Shared roles: `brass` (fills/dots, not text), `terracotta`, `live`/`killed`/`dormant` (status), tuned per mode. Strategy: **Restrained** — warm neutrals + one accent ≤10%.
+| `bg` / `surface` / `raised` | `0.14 0.01 240` / `0.18 0.015 240` / `0.22 0.02 240` | ink / monolithic / lifted |
+| `ink` / `muted` / `faint` | `0.94 0.01 240` / `0.7 0.015 240` / `0.5 0.01 240` | text tiers |
+| `line` | `0.25 0.015 240` | hairlines |
+| `accent` | `0.7 0.12 230` | luminous steel blue |
 
 ## Typography
-- **Display** — Bricolage Grotesque (`--font-display`), 600–800. Hero, section + project titles.
-- **Body** — Hanken Grotesk (`--font-body`), 400–700. Prose, descriptions.
-- **Mono** — JetBrains Mono (`--font-mono`), for **real data only**: dates, status, kinds, stack, surfaces. Meaningful (data), not costume. The technical signal.
-- No em dashes in copy (`:` `,` `()`). Fluid `clamp()` on hero, ≥1.25 ratio. Reading measure ≤72ch.
+- **Display & Body** — Schibsted Grotesk (`--font-sans`), 400–900. Authoritative, industrial.
+- **Mono** — JetBrains Mono (`--font-mono`), for **real data only**.
+- Zero rounded corners. Extreme weight contrast.
 
-## Depth & texture (the "not flat" layer)
-- Tiers: `bg` < `surface` (tiles) < `raised`. Tiles carry a subtle elevation (`.tile-depth`) + `--color-line` border.
-- Faint technical **grid** background (`.grid-bg`, `--grid-line`, 32px) — very low contrast, instrument feel.
-- Hover: subtle lift (transform) + accent border. Motion = opacity/transform only, ease-out, `prefers-reduced-motion` respected.
+## UI copy & labels (anti-drift)
+- **La voix éditoriale (prose) vit dans `docs/tone.md`** : adresse impersonnelle, « je » chaleureux, registre unique. Ici, uniquement les labels d'interface.
+- **FR partout**, y compris titres de pages et micro-labels. Titres de sections = la terminologie de PRODUCT.md (« Projets », « Carnet »), jamais de titres anglais (« Blueprint Archive », « Workshop Notes » = dérive).
+- **Mono = vraies données** (dates, statuts, stack, surfaces). Jamais de snake_case décoratif (`CURRENT_STATUS`, `LIRE_ENTRY`, `RUN[x]`) : c'est le cosplay terminal que PRODUCT.md bannit.
+- Labels d'action courts et littéraux : « Lire la note → », « Tous les projets → », « Tout le carnet → », `{label} ↗` pour les liens externes.
+- Aucun texte fabriqué en attendant le vrai contenu : afficher les faits du rail (problem / decision / architecture / lesson) ou rien.
+- Aucune mention de disponibilité ni d'appel au recrutement (registre interdit par PRODUCT.md).
 
-## Layout
-- Landing = **bento of 3 cards** (Identité large · Carnet · Projets → `/projets`). No project list on home. Tiles content-height (`items-start`).
-- Pages: max ~`64rem` shell; lists with hairline separators over identical card grids; no nested cards.
+## Texture & Layout
+- **Bento Monoliths**: High-density grid of sharp-edged blocks.
+- **Overview at a glance**: The landing page is a compact grid of different heights/widths.
+- **Technical Shadows**: Sharp, 4px/6px offset shadows for depth.
+- **Functional Density**: Maximize information without clutter; use mono for metadata.
 
-## Components
-- **StatusBadge**: mono label + dot. live/killed/dormant → status tokens.
-- **ThemeToggle**: client, toggles `html.dark` + persists; no-flash inline script in layout.
+## Entity Archetypes
 
-## Bans (on top of brand register)
-- No neon-terminal. No mono as decoration (data only). No em dashes. No gradient text, no glassmorphism, no skeuomorphic textures. No personal email in markup. No availability/CV-selling language.
+### 01 / Projets (The Blueprint)
+- **Intent**: Technical evidence & architectural depth.
+- **Visuals**: Large "Blueprint" zones for technical diagrams, screenshots, or infra maps.
+- **Layout**: High-density specs (stack, surfaces, dates) paired with a post-mortem/lesson area.
+- **Affordance**: Primary links lead to the live product or repo.
+
+### 02 / Carnet (The Workshop Note)
+- **Intent**: Intellectual currency & technical writing.
+- **Visuals**: Lead illustrations or code snippets as visual anchors.
+- **Layout**: Optimized for reading (max 65ch), vertical flow, technical margin-notes for metadata.
+- **Affordance**: Smooth transitions between notes.
+
+## Identity assets
+- **Portrait** (cartoon, profil) : source brute dans `drop/portrait/`, servi en `public/portrait.webp`. Usages : header (36px, carré monolith), carte Repères (aspect 5/4, object-top), JSON-LD Person.
+- **Favicon / apple-icon** : crop tête du portrait → `src/app/icon.png` (512) + `apple-icon.png` (180).
+- **OG image** : `src/app/opengraph-image.png` (1200×630) — fond charcoal, liseré accent, nom + rôle, portrait à droite. Régénération : pipeline sharp depuis `drop/portrait/portrait.png`.
+- Tout asset d'identité est exigé par `audit-harness.ts` (rail SEO).
+
+## Illustration Strategy
+- **Projects**: real product captures only (`public/projects/{slug}.webp`, vignettes carrées `{slug}-thumb.webp`). Captures live via Playwright ; archive nuxtolio pour les projets arrêtés. Pas de zones placeholder grises.
+- **Carnet**: pas d'image tant qu'il n'y a pas de visuel réel ; la typo porte la carte.
+- **Style**: Grayscale au repos, couleur au hover. No generic stock photos. High-contrast, sharp.
+

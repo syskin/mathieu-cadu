@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { MDXRemote } from "next-mdx-remote/rsc";
@@ -31,22 +32,47 @@ export default async function ArticlePage({ params }: Params) {
   const { meta, content } = getArticle(slug);
 
   return (
-    <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16">
-      <article>
-        <header className="border-b border-line pb-8">
-          <div className="flex items-center gap-3 text-sm text-faint">
-            <span className="font-medium text-accent">{KIND_LABEL[meta.kind]}</span>
-            <span>{frDate(meta.date)}</span>
+    <main className="mx-auto w-full max-w-6xl px-6 py-24">
+      <article className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        
+        {/* Editorial Sidebar */}
+        <aside className="lg:col-span-4 space-y-8 sticky top-12">
+          <div className="monolith p-8">
+            <div className="flex items-center justify-between font-mono text-[10px] font-bold text-faint uppercase">
+              <span className="text-accent">{KIND_LABEL[meta.kind]}</span>
+              <span>{frDate(meta.date)}</span>
+            </div>
+            <h1 className="mt-8 font-display text-4xl font-black uppercase tracking-tighter leading-none">
+              {meta.title}
+            </h1>
+            <p className="mt-6 text-lg font-medium text-muted leading-tight italic">
+              {meta.summary}
+            </p>
+            
+            {meta.tags && meta.tags.length > 0 && (
+              <div className="mt-12 pt-8 border-t border-line/30">
+                <p className="font-mono text-[9px] font-bold text-faint uppercase tracking-widest">Mots-clés</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {meta.tags.map(t => (
+                    <span key={t} className="px-2 py-0.5 bg-bg border border-line text-[9px] font-mono font-bold uppercase text-muted">#{t}</span>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-          <h1 className="mt-3 font-display text-[clamp(2rem,1.3rem+2.6vw,3rem)] font-extrabold leading-[1.08] tracking-tight">
-            {meta.title}
-          </h1>
-          <p className="mt-3 text-lg text-muted">{meta.summary}</p>
-        </header>
+        </aside>
 
-        <div className="prose-craft mt-10">
-          <MDXRemote source={content} options={mdxOptions} />
+        {/* Note Content */}
+        <div className="lg:col-span-8 monolith p-10 sm:p-16">
+          <div className="prose-craft">
+            <MDXRemote source={content} options={mdxOptions} />
+          </div>
+          
+          <footer className="mt-16 pt-10 border-t border-line/30 flex justify-end">
+             <Link href="/carnet" className="font-mono text-[10px] font-black text-accent uppercase hover:underline">← Retour au carnet</Link>
+          </footer>
         </div>
+
       </article>
     </main>
   );

@@ -3,8 +3,9 @@ export const site = {
   name: "Mathieu Cadu",
   title: "Mathieu Cadu, ingénieur & développeur fullstack",
   description:
-    "Ingénieur logiciel. Je construis des écosystèmes complets (web, mobile, infra) et j'assume mes choix : ceux qui vivent comme ceux que j'ai enterrés.",
+    "Des produits faits maison : web, mobile, jusqu'à la prod, fabriqués en entier. Ce qui tourne, ce qui s'est arrêté, et ce que j'en retiens.",
   role: "Ingénieur & développeur fullstack",
+  location: "Angers · Paris",
   locale: "fr_FR",
   lang: "fr",
   links: {
