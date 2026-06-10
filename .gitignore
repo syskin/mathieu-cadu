@@ -48,3 +48,7 @@ next-env.d.ts
 
 # visual check artifacts
 .screenshots/
+
+# illustration intake — raw drops never ship (public repo); pipeline output lands in public/
+/drop/*
+!/drop/README.md
