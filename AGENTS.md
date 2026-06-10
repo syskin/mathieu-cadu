@@ -14,7 +14,7 @@ Personal branding site for Mathieu Cadu. Successor to the legacy `nuxtolio` (Nux
 - **Positioning:** product-minded engineer + assumed lucidity. *"Le code est un moyen, la décision produit est le métier. Je construis des écosystèmes complets et j'assume mes choix — ceux qui vivent comme ceux que j'ai enterrés."*
 - **Three pillars** every feature must serve:
   1. **Product judgment** — launching *and* killing products; lucidity.
-  2. **Multi-platform ecosystems** — web + native + infra around one idea, not isolated features.
+  2. **Multi-platform ecosystems** — web + native around one idea, not isolated features.
   3. **Disciplined AI engineering** — framed agentic flows, not vibe coding.
 
 ## The golden rule: show, don't tell

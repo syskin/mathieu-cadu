@@ -13,12 +13,12 @@ Refonte du site de personal branding de Mathieu Cadu. L'ancien (`nuxtolio`, Nuxt
 ## Edge
 
 - Vision produit + lucidité (savoir lancer **et** tuer un produit).
-- Écosystèmes multi-plateformes (web + natif + infra autour d'une idée).
+- Écosystèmes multi-plateformes (web + natif autour d'une idée).
 - Pas positionné sur la vélocité brute ni la profondeur perf pure.
 
 ## Positionnement (verrouillé — hybride A+C)
 
-> *« Ingénieur produit. Le code est un moyen — la décision produit est le métier. Je construis des écosystèmes complets (web, mobile, infra) et j'assume mes choix : ceux qui vivent comme ceux que j'ai enterrés. »*
+> *« Ingénieur produit. Le code est un moyen — la décision produit est le métier. Je construis des écosystèmes complets (web, mobile) et j'assume mes choix : ceux qui vivent comme ceux que j'ai enterrés. »*
 
 ## Les 3 piliers
 
