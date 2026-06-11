@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { projects } from "@/content/projects";
 import { StatusBadge } from "@/components/StatusBadge";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 const SURFACE_LABEL: Record<string, string> = {
   web: "Web",
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
 export default function ProjetsPage() {
   return (
     <main className="mx-auto w-full max-w-6xl px-6 py-24">
+      <Breadcrumb crumbs={[{ label: "Accueil", href: "/" }]} current="Projets" />
       <header className="border-b-8 border-ink pb-12">
         <h1 className="font-display text-7xl font-black uppercase tracking-tighter">
           Projets
@@ -100,7 +102,7 @@ export default function ProjetsPage() {
                   sizes="(min-width: 1024px) 64vw, 100vw"
                   loading={i === 0 ? "eager" : "lazy"}
                   fetchPriority={i === 0 ? "high" : undefined}
-                  className="object-cover object-top"
+                  className="object-contain"
                 />
               </div>
 

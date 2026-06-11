@@ -7,6 +7,7 @@ import rehypeSlug from "rehype-slug";
 import { getArticle, getPublished } from "@/lib/writing";
 import { KIND_LABEL } from "@/content/writing/schema";
 import { frDate } from "@/lib/format";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -33,7 +34,11 @@ export default async function ArticlePage({ params }: Params) {
 
   return (
     <main className="mx-auto w-full max-w-6xl px-6 py-24">
-      <article className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <Breadcrumb
+        crumbs={[{ label: "Accueil", href: "/" }, { label: "Carnet", href: "/carnet" }]}
+        current={meta.title}
+      />
+      <article className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
         
         {/* Editorial Sidebar */}
         <aside className="lg:col-span-4 space-y-8 sticky top-12">
@@ -63,7 +68,7 @@ export default async function ArticlePage({ params }: Params) {
         </aside>
 
         {/* Note Content */}
-        <div className="lg:col-span-8 monolith p-10 sm:p-16">
+        <div className="lg:col-span-8 monolith px-10 py-12 sm:px-16 sm:py-16">
           <div className="prose-craft">
             <MDXRemote source={content} options={mdxOptions} />
           </div>

@@ -84,7 +84,7 @@ export default function Home() {
                 sizes="(min-width: 768px) 56vw, 100vw"
                 loading="eager"
                 fetchPriority="high"
-                className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
+                className="object-contain transition-transform duration-300 group-hover:scale-[1.02]"
               />
             </div>
             <div className="p-8 flex-1 flex flex-col">

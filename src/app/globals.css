@@ -85,31 +85,61 @@ body {
 /* Reading layer — industrial clarity. */
 .prose-craft {
   max-width: 42rem;
-  font-size: 1.125rem;
-  line-height: 1.6;
+  font-size: 1.175rem;
+  line-height: 1.8;
   color: var(--color-ink);
+}
+.prose-craft p {
+  margin-top: 1.6em;
+}
+.prose-craft p:first-child {
+  margin-top: 0;
 }
 .prose-craft h2 {
   font-weight: 900;
   font-size: 2rem;
   text-transform: uppercase;
   letter-spacing: -0.02em;
-  margin-top: 1.75em;
+  margin-top: 2.5em;
+  margin-bottom: 0.75em;
 }
 .prose-craft h3 {
   font-weight: 800;
   font-size: 1.5rem;
   margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+.prose-craft ul,
+.prose-craft ol {
+  margin-top: 1.4em;
+  padding-left: 1.5em;
+}
+.prose-craft li {
+  margin-top: 0.5em;
 }
 .prose-craft code {
   font-family: var(--font-mono);
   background: var(--c-line);
-  padding: 0.1em 0.3em;
+  padding: 0.1em 0.35em;
   border-radius: 0;
+  font-size: 0.9em;
 }
 .prose-craft pre {
   background: var(--c-surface);
   box-shadow: var(--shadow-block);
-  padding: 1.5em;
+  padding: 2em;
   border-radius: 0;
+  margin-top: 1.75em;
+  overflow-x: auto;
+}
+.prose-craft pre code {
+  background: none;
+  padding: 0;
+  font-size: 0.875rem;
+}
+.prose-craft hr {
+  border: none;
+  border-top: 2px solid var(--c-line);
+  margin: 3em 0;
+  width: 4rem;
 }
