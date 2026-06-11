@@ -3,24 +3,31 @@ import { site } from "@/lib/site";
 import { getPublished } from "@/lib/writing";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
+  const articles = getPublished(); // newest first
+  // La home et le carnet bougent au rythme des publications ; pas de fausse
+  // fraîcheur datée du build.
+  const latest = articles[0]?.date;
   return [
-    { url: site.url, lastModified: now, changeFrequency: "weekly", priority: 1 },
+    {
+      url: site.url,
+      ...(latest && { lastModified: latest }),
+      changeFrequency: "weekly",
+      priority: 1,
+    },
     {
       url: `${site.url}/carnet`,
-      lastModified: now,
+      ...(latest && { lastModified: latest }),
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${site.url}/projets`,
-      lastModified: now,
       changeFrequency: "monthly",
       priority: 0.8,
     },
-    ...getPublished().map((a) => ({
+    ...articles.map((a) => ({
       url: `${site.url}/carnet/${a.slug}`,
-      lastModified: new Date(`${a.date}T00:00:00`),
+      lastModified: a.date,
       changeFrequency: "monthly" as const,
       priority: 0.7,
     })),

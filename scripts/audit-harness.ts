@@ -45,9 +45,31 @@ for (const f of [
   "src/app/icon.png",
   "src/app/apple-icon.png",
   "src/app/opengraph-image.png",
+  "src/app/opengraph-image.alt.txt",
+  "src/app/feed.xml/route.ts",
+  "src/lib/seo.ts",
   "public/portrait.webp",
 ]) {
   if (!existsSync(join(root, f))) fail(`SEO rail missing: ${f}`);
+}
+
+// 3bis. Per-page SEO — Next merges metadata *shallowly*: a page that sets only
+// `title` inherits the layout's canonical/openGraph and silently points to the
+// homepage. Every page below the root must build its metadata via pageMeta().
+const appDir = join(root, "src/app");
+const pagesBelowRoot: string[] = [];
+(function walk(d: string) {
+  for (const e of readdirSync(d, { withFileTypes: true })) {
+    if (e.isDirectory()) walk(join(d, e.name));
+    else if (e.name === "page.tsx" && d !== appDir) pagesBelowRoot.push(join(d, e.name));
+  }
+})(appDir);
+for (const f of pagesBelowRoot) {
+  if (!readFileSync(f, "utf8").includes("pageMeta(")) {
+    fail(
+      `per-page SEO drift: ${f.slice(root.length + 1)} does not build its metadata via pageMeta() — canonical/OG would silently fall back to the homepage's.`,
+    );
+  }
 }
 
 // 4. Governance present (incl. brand foundation).

@@ -7,6 +7,8 @@ import rehypeSlug from "rehype-slug";
 import { getArticle, getPublished } from "@/lib/writing";
 import { KIND_LABEL } from "@/content/writing/schema";
 import { frDate } from "@/lib/format";
+import { pageMeta } from "@/lib/seo";
+import { site } from "@/lib/site";
 import { Breadcrumb } from "@/components/Breadcrumb";
 
 type Params = { params: Promise<{ slug: string }> };
@@ -19,7 +21,12 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const published = getPublished().find((a) => a.slug === slug);
   if (!published) return {};
-  return { title: published.title, description: published.summary };
+  return pageMeta({
+    title: published.title,
+    description: published.summary,
+    path: `/carnet/${slug}`,
+    article: { publishedTime: published.date, tags: published.tags },
+  });
 }
 
 const mdxOptions = {
@@ -32,8 +39,25 @@ export default async function ArticlePage({ params }: Params) {
 
   const { meta, content } = getArticle(slug);
 
+  // JSON-LD BlogPosting — author pointe sur le Person déclaré dans le layout.
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: meta.title,
+    description: meta.summary,
+    datePublished: meta.date,
+    inLanguage: site.lang,
+    url: `${site.url}/carnet/${slug}`,
+    author: { "@id": `${site.url}/#person` },
+    ...(meta.tags.length > 0 && { keywords: meta.tags.join(", ") }),
+  };
+
   return (
     <main className="mx-auto w-full max-w-6xl px-6 py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <Breadcrumb
         crumbs={[{ label: "Accueil", href: "/" }, { label: "Carnet", href: "/carnet" }]}
         current={meta.title}

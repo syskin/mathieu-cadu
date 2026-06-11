@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { getPublished } from "@/lib/writing";
 import { KIND_LABEL } from "@/content/writing/schema";
 import { frDate } from "@/lib/format";
@@ -8,10 +9,11 @@ import { Breadcrumb } from "@/components/Breadcrumb";
 const INTRO =
   "J'écris ici ce que je fabrique : retours d'expérience, chantiers, tests d'outils.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Carnet",
   description: INTRO,
-};
+  path: "/carnet",
+});
 
 export default function CarnetPage() {
   const articles = getPublished();

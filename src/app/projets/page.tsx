@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { pageMeta } from "@/lib/seo";
 import { projects } from "@/content/projects";
 import { StatusBadge } from "@/components/StatusBadge";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -16,10 +17,11 @@ const SURFACE_LABEL: Record<string, string> = {
 const INTRO =
   "Ce que je construis : du web au natif. Ce qui vit, ce que j'ai arrêté, et pourquoi.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Projets",
   description: INTRO,
-};
+  path: "/projets",
+});
 
 export default function ProjetsPage() {
   return (

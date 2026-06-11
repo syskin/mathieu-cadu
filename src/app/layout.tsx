@@ -30,17 +30,18 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: site.locale,
-    url: site.url,
+    url: "/",
     siteName: site.name,
     title: site.title,
     description: site.description,
   },
-  twitter: {
-    card: "summary_large_image",
-    title: site.title,
-    description: site.description,
+  // No title/description here: X falls back to og:* — one less block to keep in sync.
+  twitter: { card: "summary_large_image" },
+  // Applies to the homepage only — every other page restates its own block via pageMeta().
+  alternates: {
+    canonical: "/",
+    types: { "application/rss+xml": `${site.url}/feed.xml` },
   },
-  alternates: { canonical: site.url },
 };
 
 export const viewport: Viewport = {
@@ -54,6 +55,7 @@ export const viewport: Viewport = {
 const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
+  "@id": `${site.url}/#person`,
   name: site.name,
   url: site.url,
   image: `${site.url}/portrait.webp`,
